@@ -1,6 +1,7 @@
 /// structure that holds the position of the token in the input characters.
 ///
-#[derive(Debug, Default, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, derive_more::Display)]
+#[display(fmt = "{}-{}", _0, _1)]
 pub struct Loc(
     /// start position
     pub usize,

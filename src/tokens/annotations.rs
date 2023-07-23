@@ -11,7 +11,7 @@ use super::locations::Loc;
     derive_more::DerefMut,
     derive_more::Display,
 )]
-#[display(fmt = "{}", value)]
+#[display(fmt = "{}: {}", loc, value)]
 pub struct Annot<T> {
     #[deref]
     #[deref_mut]

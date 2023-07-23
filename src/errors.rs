@@ -1,4 +1,5 @@
 use std::io;
+use std::io::Write;
 
 use crate::lexer::lex_errors::LexError;
 use crate::parser::parse_errors::ParseError;
@@ -11,4 +12,26 @@ pub enum AppError {
     Lex(#[error(source)] LexError),
     #[display(fmt = "Parse Error")]
     Parse(#[error(source)] ParseError),
+}
+
+pub trait DisplayRecursively {
+    fn print_recursive<W: io::Write>(&self, writer: W) -> io::Result<()>;
+}
+
+impl<E> DisplayRecursively for E
+where
+    E: std::error::Error,
+{
+    fn print_recursive<W: io::Write>(&self, writer: W) -> io::Result<()> {
+        let mut writer = io::BufWriter::new(writer);
+        writer.write_all(format!("{}\n", self).as_bytes())?;
+
+        let mut source = self.source();
+        while let Some(s) = source {
+            writer.write_all(format!("{}\n", s).as_bytes())?;
+            source = s.source();
+        }
+
+        Ok(())
+    }
 }
