@@ -9,6 +9,17 @@ pub mod parse_errors;
 
 mod inner;
 
+//
+// tokens                            ast
+// t1 t2 t3 t4 ...  == parse_expr==>   a1
+//                                   ／  ＼
+//                                 a2     a3
+//                               ／  ＼
+//                             a4     a5
+//
+// rest tokens
+//              ??
+//
 pub fn parse(tokens: Vec<Token>) -> Result<Ast, ParseError> {
     let mut tokens = tokens.into_iter().peekable();
     let ast = parse_expr(&mut tokens)?;
@@ -20,7 +31,7 @@ pub fn parse(tokens: Vec<Token>) -> Result<Ast, ParseError> {
 
 #[cfg(test)]
 mod tests {
-    
+
     use crate::ast::AstKind;
     use crate::parser::ops::BinaryOperationKind;
     use crate::parser::ops::UnaryOperationKind;

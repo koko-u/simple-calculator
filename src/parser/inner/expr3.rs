@@ -1,3 +1,4 @@
+use std::fmt;
 use std::iter::Peekable;
 use std::ops::Deref;
 
@@ -13,12 +14,29 @@ use crate::tokens::TokenKind;
 
 use super::expr2::parse_expr2;
 
+//
+// tokens                              ast
+// t1 t2 t3 t4 ...  == parse_expr3 ==>   a1
+//                                     ／  ＼
+//                                   a2     a3
+//                                 ／  ＼
+//                               a4     a5
+//
+//
 // トークン列を解析して、先頭の項を EXPR3 として AST に解釈する
 // 先頭の項が EXPR3 でなければエラーとなる
+
+/// EXPR3 を構文解析します
+///
+/// EXPR2 - EXPR2 + EXPR2 + EXPR2 + EXPR2 のように、同じ結合優先順の +, - 二項演算子で EXPR2 が
+/// 続いているとしてトークンを解釈します
+///
 pub fn parse_expr3<Tokens>(tokens: &mut Peekable<Tokens>) -> Result<Ast, ParseError>
 where
-    Tokens: Iterator<Item = Token>,
+    Tokens: Iterator<Item = Token> + fmt::Debug,
 {
+    log::debug!("parse_expr3 {tokens:?}");
+
     let mut expr = parse_expr2(tokens)?;
     loop {
         match tokens.peek().map(Deref::deref) {
