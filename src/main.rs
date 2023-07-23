@@ -29,6 +29,7 @@ fn main() -> Result<(), AppError> {
             Ok(ast) => ast,
             Err(e) => {
                 let stderr = io::stderr().lock();
+                e.show_diagnostic(&line);
                 e.print_recursive(stderr)?;
                 continue;
             }
