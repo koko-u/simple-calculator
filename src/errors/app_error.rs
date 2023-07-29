@@ -4,6 +4,7 @@ use crate::locations::Loc;
 
 use super::lex_error::LexError;
 use super::parse_error::ParseError;
+use super::print_error::print_error;
 
 #[derive(Debug, derive_more::Display, derive_more::Error, derive_more::From)]
 pub enum AppError {
@@ -20,26 +21,21 @@ impl AppError {
         match self {
             AppError::Io(e) => eprintln!("{e:?}"),
             AppError::Lex(e) => {
-                print_annot(input, e.location());
+                print_error(input).with(e.location());
             }
             AppError::Parse(ParseError::Eof) => {
-                print_annot(input, Loc(input.len(), input.len() + 1));
+                print_error(input).with(Loc(input.len(), input.len() + 1));
             }
             AppError::Parse(ParseError::RedundantExpression(token)) => {
                 let Loc(from, _) = token.location();
-                print_annot(input, Loc(from, input.len()));
+                print_error(input).with(Loc(from, input.len()));
             }
             AppError::Parse(ParseError::InvalidExpression(token))
             | AppError::Parse(ParseError::InvalidOperator(token))
             | AppError::Parse(ParseError::UnexpectedToken(token))
             | AppError::Parse(ParseError::UnclosedParen(token)) => {
-                print_annot(input, token.location());
+                print_error(input).with(token.location());
             }
         }
     }
-}
-
-fn print_annot(input: &str, Loc(from, to): Loc) {
-    eprintln!("{input}");
-    eprintln!("{}{}", " ".repeat(from), "^".repeat(to - from))
 }

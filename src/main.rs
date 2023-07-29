@@ -7,6 +7,7 @@ use env_logger::Env;
 use simple_calculator::AppError;
 use simple_calculator::Ast;
 use simple_calculator::DisplayRecursively;
+use simple_calculator::Interpreter;
 
 fn main() -> Result<(), AppError> {
     if env::var("RUST_LOG").is_err() {
@@ -17,6 +18,8 @@ fn main() -> Result<(), AppError> {
     let stdin = io::stdin().lock();
     let reader = io::BufReader::new(stdin);
     let mut lines = reader.lines();
+
+    let mut interpreter = Interpreter;
 
     loop {
         prompt("> ")?;
@@ -35,7 +38,17 @@ fn main() -> Result<(), AppError> {
             }
         };
 
-        println!("{ast:#?}");
+        let n = match interpreter.eval(&ast) {
+            Ok(n) => n,
+            Err(e) => {
+                let stderr = io::stderr().lock();
+                e.show_diagnostic(&line);
+                e.print_recursive(stderr)?;
+                continue;
+            }
+        };
+
+        println!("{n}");
     }
 
     Ok(())

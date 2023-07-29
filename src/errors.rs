@@ -1,7 +1,12 @@
 pub mod app_error;
+pub mod interpreter_error;
 pub mod lex_error;
 pub mod parse_error;
 
+mod print_error;
+
+pub use interpreter_error::InterpreterError;
+pub use interpreter_error::InterpreterErrorKind;
 pub use lex_error::LexError;
 pub use lex_error::LexErrorKind;
 pub use parse_error::ParseError;
