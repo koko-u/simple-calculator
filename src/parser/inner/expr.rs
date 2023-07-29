@@ -2,7 +2,7 @@ use std::fmt;
 use std::iter::Peekable;
 
 use crate::ast::Ast;
-use crate::parser::parse_errors::ParseError;
+use crate::errors::ParseError;
 use crate::tokens::Token;
 
 use super::expr3::parse_expr3;

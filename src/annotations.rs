@@ -1,4 +1,4 @@
-use super::locations::Loc;
+use crate::locations::Loc;
 
 /// 型Tの値に対してその位置情報を付与した構造体です
 #[derive(

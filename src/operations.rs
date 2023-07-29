@@ -1,5 +1,5 @@
-use crate::tokens::annotations::Annot;
-use crate::tokens::annotations::WithAnnot;
+use crate::annotations::Annot;
+use crate::annotations::WithAnnot;
 
 /// unary operation kind
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

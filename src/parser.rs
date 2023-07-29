@@ -1,11 +1,8 @@
 use crate::ast::Ast;
-use crate::parser::parse_errors::ParseError;
+use crate::errors::ParseError;
 use crate::tokens::Token;
 
 use self::inner::expr::parse_expr;
-
-pub mod ops;
-pub mod parse_errors;
 
 mod inner;
 
@@ -32,10 +29,10 @@ pub fn parse(tokens: Vec<Token>) -> Result<Ast, ParseError> {
 #[cfg(test)]
 mod tests {
 
+    use crate::annotations::WithAnnot;
     use crate::ast::AstKind;
-    use crate::parser::ops::BinaryOperationKind;
-    use crate::parser::ops::UnaryOperationKind;
-    use crate::tokens::annotations::WithAnnot;
+    use crate::operations::BinaryOperationKind;
+    use crate::operations::UnaryOperationKind;
     use crate::tokens::TokenKind::*;
     use pretty_assertions::assert_eq;
 

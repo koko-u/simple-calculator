@@ -2,13 +2,13 @@ use std::fmt;
 use std::iter::Peekable;
 use std::ops::Deref;
 
+use crate::annotations::WithAnnot;
 use crate::ast::Ast;
 use crate::ast::AstKind;
-use crate::parser::ops::BinaryOperationKind;
-use crate::parser::parse_errors::ParseError;
-use crate::tokens::annotations::WithAnnot;
-use crate::tokens::locations::merge;
-use crate::tokens::locations::Loc;
+use crate::errors::ParseError;
+use crate::locations::merge;
+use crate::locations::Loc;
+use crate::operations::BinaryOperationKind;
 use crate::tokens::Token;
 use crate::tokens::TokenKind;
 

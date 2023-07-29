@@ -1,12 +1,12 @@
 use std::str;
 
-use crate::errors::AppError;
+use crate::annotations::Annot;
+use crate::annotations::WithAnnot;
 use crate::lexer::lex;
-use crate::parser::ops::BinaryOperation;
-use crate::parser::ops::UnaryOperation;
+use crate::operations::BinaryOperation;
+use crate::operations::UnaryOperation;
 use crate::parser::parse;
-use crate::tokens::annotations::Annot;
-use crate::tokens::annotations::WithAnnot;
+use crate::AppError;
 
 /// abstract syntax tree kind
 #[derive(Debug, Clone, PartialEq, Eq)]

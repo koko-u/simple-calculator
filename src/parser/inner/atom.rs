@@ -2,12 +2,12 @@ use std::fmt;
 use std::iter::Peekable;
 use std::ops::Deref;
 
+use crate::annotations::WithAnnot;
 use crate::ast::AstKind;
+use crate::errors::ParseError;
+use crate::locations::Loc;
 use crate::parser::inner::expr3::parse_expr3;
-use crate::parser::parse_errors::ParseError;
 use crate::parser::Ast;
-use crate::tokens::annotations::WithAnnot;
-use crate::tokens::locations::Loc;
 use crate::tokens::Token;
 use crate::tokens::TokenKind;
 

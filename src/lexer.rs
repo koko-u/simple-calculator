@@ -1,18 +1,16 @@
 use std::str;
 
+use crate::annotations::WithAnnot;
+use crate::errors::LexError;
 use crate::lexer::inner::lex_number;
-use crate::lexer::lex_errors::LexError;
-use crate::lexer::lex_errors::LexErrorKind;
-use crate::tokens::annotations::WithAnnot;
 use crate::tokens::Token;
 use crate::tokens::TokenKind;
 
 mod inner;
-pub mod lex_errors;
 
 /// lexer
 pub fn lex(input: &str) -> Result<Vec<Token>, LexError> {
-    use crate::lexer::LexErrorKind::*;
+    use crate::errors::LexErrorKind::*;
     use crate::lexer::TokenKind::*;
 
     let mut tokens = Vec::new();
@@ -68,8 +66,8 @@ pub fn lex(input: &str) -> Result<Vec<Token>, LexError> {
 mod tests {
     use crate::lexer::lex;
 
-    use crate::lexer::lex_errors::LexErrorKind;
-    use crate::tokens::annotations::WithAnnot;
+    use crate::annotations::WithAnnot;
+    use crate::errors::LexErrorKind;
     use crate::tokens::TokenKind::*;
     use pretty_assertions::assert_eq;
 

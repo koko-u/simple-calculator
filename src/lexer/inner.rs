@@ -1,8 +1,8 @@
 use std::str;
 
+use crate::annotations::WithAnnot;
 use crate::tokens::Token;
 use crate::tokens::TokenKind;
-use crate::tokens::annotations::WithAnnot;
 
 pub fn lex_number(input: &[u8], pos: usize) -> (Token, usize) {
     let start_pos = pos;

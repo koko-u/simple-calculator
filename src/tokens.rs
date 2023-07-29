@@ -1,8 +1,5 @@
-use self::annotations::Annot;
-use self::annotations::WithAnnot;
-
-pub mod annotations;
-pub mod locations;
+use crate::annotations::Annot;
+use crate::annotations::WithAnnot;
 
 /// The token kind resulting from lexical analysis.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, derive_more::Display)]

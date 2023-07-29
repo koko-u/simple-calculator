@@ -1,7 +1,7 @@
 use std::error;
 
-use crate::tokens::annotations::Annot;
-use crate::tokens::annotations::WithAnnot;
+use crate::annotations::Annot;
+use crate::annotations::WithAnnot;
 
 /// lexer error kind
 #[derive(Debug, Clone, Copy, PartialEq, Eq, derive_more::Display)]
